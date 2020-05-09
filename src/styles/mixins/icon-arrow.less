@@ -1,0 +1,25 @@
+//只能在:before或:after用
+.icon-arrow (@direction,@width,@height,@color) when (@direction = top) {
+  border-width: 0 @width*0.5 @height;
+  border-color: transparent transparent @color;
+}
+.icon-arrow (@direction,@width,@height,@color) when (@direction = down) {
+  border-width: @height @width*0.5 0;
+  border-color: @color transparent transparent;
+}
+.icon-arrow (@direction,@width,@height,@color) when (@direction = left) {
+  border-width: @height*0.5 @width @height*0.5 0;
+  border-color: transparent @color transparent transparent;
+
+}
+.icon-arrow (@direction,@width,@height,@color) when (@direction = right) {
+  border-width: @height*0.5 0 @height*0.5 @width;
+  border-color: transparent transparent transparent @color;
+}
+.icon-arrow (@direction,@width,@height,@color){
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  overflow: hidden;
+}
