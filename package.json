@@ -1,7 +1,7 @@
 {
-  "name": "{{projectName}}",
-  "version": "{{version}}",
-  "author": "{{author}}",
+  "name": "hexo-editor",
+  "version": "0.1.0",
+  "author": "Yx1aoq1",
   "private": true,
   "scripts": {
     "start": "npm run serve",
@@ -10,6 +10,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "ant-design-vue": "^1.5.6",
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
     "dayjs": "^1.8.16",

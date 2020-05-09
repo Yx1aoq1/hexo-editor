@@ -1,15 +1,27 @@
 const path = require('path')
-const buildConfig = require('./config')
 const webpack = require('webpack')
+const config = require('./config/config.js')
 
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
+console.log(process.env.NODE_ENV)
+
 module.exports = {
   outputDir: resolve('dist'),
   lintOnSave: false,
   productionSourceMap: false,
+  pages: {
+    index: {
+      // page 的入口
+      entry: 'client/main.js',
+      // 模板来源
+      template: 'public/index.html',
+      // 输出文件名
+      filename: 'index.html'
+    }
+  },
   css: {
     loaderOptions: {
       less: {
@@ -17,8 +29,8 @@ module.exports = {
       }
     }
   },
-  configureWebpack (config) {
-    buildConfig[process.env.NODE_ENV].configureWebpack(config)
+  devServer: {
+    proxy: `http://${config.host}:${config.port}/api`
   },
   chainWebpack (config) {
     config.plugins.delete('prefetch')
@@ -32,12 +44,7 @@ module.exports = {
     
     /* 设置 resolve.alias */
     config.resolve.alias
-      .set('@', resolve('src'))
-      .set('components', resolve('src/components'))
-      .set('api', resolve('src/api'))
-      .set('assets', resolve('src/assets'))
-      .set('mixins', resolve('src/mixins'))
-
-    buildConfig[process.env.NODE_ENV].chainWebpack(config)
+      .set('@', resolve('client'))
+      .set('variables$', resolve('client/styles/variables.less'))
   }
 }
