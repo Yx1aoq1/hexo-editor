@@ -29,3 +29,11 @@ app.use('/', Express.static(path.join(__dirname, '../dist')))
 app.use(favicon(path.join(__dirname, '../dist', 'favicon.ico')))
 app.use('/api', api)
 app.use(compression())
+
+app.listen(port, function (err) {
+  if (err) {
+    console.error('err:', err)
+  } else {
+    console.info(`===> api server is running at ${config.host}:${config.port}`)
+  }
+})

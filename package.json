@@ -4,22 +4,32 @@
   "author": "Yx1aoq1",
   "private": true,
   "scripts": {
-    "start": "npm run serve",
-    "serve": "vue-cli-service serve",
+    "start": "npm run serve:client",
+    "serve:client": "vue-cli-service serve --port 8100",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "serve:app": "set NODE_ENV=server&& nodemon --watch server --exec babel-node -- server/app.js"
   },
   "dependencies": {
     "ant-design-vue": "^1.5.6",
     "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "connect-history-api-fallback": "^1.6.0",
+    "cookie-parser": "^1.4.5",
     "core-js": "^2.6.5",
     "dayjs": "^1.8.16",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "lodash": "^4.17.15",
+    "morgan": "^1.10.0",
+    "serve-favicon": "^2.5.0",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
+    "@babel/node": "^7.8.7",
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-eslint": "^3.11.0",
     "@vue/cli-service": "^3.11.0",
@@ -31,6 +41,7 @@
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "lodash-webpack-plugin": "^0.11.5",
+    "nodemon": "^2.0.3",
     "postcss-import": "^12.0.1",
     "postcss-url": "^8.0.0",
     "vue-template-compiler": "^2.6.10",

@@ -6,8 +6,6 @@ function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
-console.log(process.env.NODE_ENV)
-
 module.exports = {
   outputDir: resolve('dist'),
   lintOnSave: false,

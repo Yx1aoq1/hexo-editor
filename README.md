@@ -1,3 +1,3 @@
-# vue-template
+# hexo-editor
 
-vue 项目模板
+vue + ant-design-vue + express hexo博客后台管理
