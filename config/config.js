@@ -4,7 +4,7 @@ module.exports = {
   dbHost: 'localhost',
   dbPort: 27017,
   app: {
-    title: 'vue-blog-admin',
-    description: 'Yx1aoq1\'s blog'
+    title: 'hexo-editor',
+    description: 'hexo-editor'
   }
 }
