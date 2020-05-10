@@ -6,9 +6,10 @@
     <a-list :data-source="data">
       <a-list-item slot="renderItem" slot-scope="item">
         <a slot="actions" @click="handleEdit(item)">Edit</a>
-        <a v-if="workspace !== 'posts'" slot="actions" @click="handleActions('publish', item)">Publish</a>
+        <a v-if="workspace === 'drafts'" slot="actions" @click="handleActions('publish', item)">Publish</a>
         <a v-if="workspace !== 'drafts'" slot="actions" @click="handleActions('stash', item)">Stash</a>
         <a v-if="workspace !== 'trash'" slot="actions" @click="handleActions('delete', item)">Discard</a>
+        <a v-if="workspace === 'trash'" slot="actions" @click="handleDelete(item)">Delete</a>
         <a-list-item-meta>
           <a slot="title">{{ item.title }}</a>
           <div slot="description">
@@ -83,6 +84,15 @@ export default {
           this.$message.success(res.message)
           this.getList()
         })
+    },
+    handleDelete (item) {
+      this.$confirm({
+        title: 'Do you want to delete this article?',
+        content: 'When clicked the OK button, source file will be delete',
+        onOk () {
+          this.handleActions('deleteSource', item)
+        }
+      })
     }
   }
 }

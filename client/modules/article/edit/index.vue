@@ -11,7 +11,6 @@
       </template>
       <template slot="extra">
         <a-button key="1" type="primary">Publish</a-button>
-        <a-button key="1" type="danger">Discard</a-button>
         <a-button key="2">Stash</a-button>
         <a-button @click="goback">Cancel</a-button>
       </template>
