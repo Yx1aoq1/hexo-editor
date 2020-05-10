@@ -1,0 +1,294 @@
+
+.hide {
+  display: none;
+}
+
+.markdown {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: @background-color;
+  height: 100%;
+
+  &-toolbars {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    background: #fff;
+    color: @material-grey;
+    height: 40px;
+    border-bottom: 1px solid @border-color;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      i {
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        display: block;
+        border-radius: 3px;
+        line-height: 25px;
+        text-align: center;
+      }
+      &:not(:first-child) {
+        margin-left: 7px;
+        &:after {
+          display: block;
+          content: attr(name);
+          position: absolute;
+          z-index: 999999999999;
+          top: 32px;
+          left: 20px;
+          background: @black;
+          color: #fff;
+          white-space: nowrap;
+          font-size: 12px;
+          line-height: 28px;
+          padding: 0 6px;
+          transition: all .3s .1s;
+          transform: scale(0);
+          opacity: 0;
+          transform-origin: top;
+          border-radius: 2px;
+          font-family: @code-font-family;
+        }
+        &:hover {
+          &:after {
+            transform: scale(1);
+            opacity: 1;
+          }
+          background: @background-color;
+        }
+      }
+      &:nth-child(2) {
+        margin-left: 15px;
+      }
+    }
+  }
+
+  &-tip {
+    font-size: 12px;
+    font-family: @code-font-family;
+    margin-left: 5px;
+    color: #aaa;
+  }
+
+  &-content {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 0;
+    flex: 1;
+    min-height: 0;
+    flex-direction: row;
+    .codemirror {
+      flex: 1;
+      height: 100%;
+      overflow: auto;
+      /deep/ .CodeMirror {
+        height: 100%;
+      }
+    }
+  }
+
+  &-preview {
+    flex: 1;
+    height: 100%;
+    overflow: auto;
+    background: #fff;
+    padding-bottom: 0px;
+    padding: 0 30px;
+  }
+
+  &-fullscreen {
+    position: fixed;
+    z-index: 999999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100% !important;
+    width: 100%;
+    border: none;
+
+    &.markdown-content {
+      padding: 0;
+      padding-top: 10px;
+    }
+  }
+}
+
+.markdown-preview {
+  position: relative;
+  font-family: @article-font-family;
+  font-size: 16px;
+  color: lighten(@text-color, 3%);
+  padding-bottom: 30px;
+
+  a {
+    color: darken(@accent-color, 2%);
+
+    &:hover {
+      color: darken(@accent-color, 3%);
+      background: fade(@accent-color, 10%);
+    }
+    &:active {
+      background: fade(@accent-color, 20%);
+      color: @white;
+    }
+  }
+  h1, h2, h3, h4, h5, h6 {
+	  position: relative;
+    font-family: @base-font-family;
+    font-weight: bold;
+    margin: 40px auto 30px auto;
+    
+    @media (max-width: @on-phone) {
+	    left: 15px;
+    }
+    &::before {
+	    position: absolute;
+	    left: -20px;
+	    top: 0px;
+	    content: "#";
+	    color: @material-green;
+	    font-weight: normal;
+    }
+  }
+  p {
+    margin-bottom: 20px;
+    line-height: 1.75em;
+  }
+  figure {
+    width: 100%;
+    font-size: 13px;
+    margin: 20px 0px;
+    padding: 10px 15px;
+    background: @background-color;
+    overflow: auto;
+    
+    td.gutter {
+      padding-right: 10px;
+      color: lighten(@grey-color, 8%);
+      font-size: 12px;
+      border-right: 1px solid darken(@background-color, 5%);
+    }
+    td.code {
+      padding-left: 10px;
+    }
+  }
+  ul,
+  ol {
+    margin: 20px 0px 20px 0px;
+    padding-left: 30px;
+  }
+	ul {
+	  list-style: circle;
+	}
+  img {
+    display: block;
+    border: none;
+    max-width: 100%;
+    height: auto;
+  }
+  blockquote {
+    position: relative;
+    width: 100%;
+    margin: 20px 0px;
+    padding: 0px 20px;
+    border-left: 4px solid @material-green;
+  }
+  pre {
+	  white-space: pre;
+	  
+	  code {
+			color: @black;
+			padding: 0;
+			margin: 0;
+			font-size: 1em;
+			background: transparent;
+			border: 0;
+			white-space: inherit;
+		}
+		figure {
+			margin: 0px;
+		}
+  }
+  code {
+	  color: darken(@brand-color, 2%);
+    padding: 3px 5px;
+    margin: 0px 2px;
+    border-radius: 2px;
+    white-space: nowrap;
+    font-size: 0.8em;
+    background: @background-color;
+    font-family: @code-font-family;
+  }
+
+  @media (max-width: @on-phone) {
+    font-size: 16px;
+
+    h1, h2, h3 {
+      margin: 30px 0px;
+    }
+    h4, h5, h6 {
+      margin: 20px 0px;
+    }
+    h1 {
+      font-size: 1.5em;
+    }
+    h2 {
+      font-size: 1.4em;
+    }
+    h3 {
+      font-size: 1.3em;
+    }
+    h4{
+      font-size: 1.2em;
+    }
+    h5 {
+      font-size: 1.1em;
+    }
+    h6 {
+      font-size: 1em;
+    }
+    figure {
+      font-size: 13px;
+      line-height: 1.6em;
+    }
+  }
+  .code-block {
+    position: relative;
+    padding: 0 !important;
+    .copy-code {// 复制代码
+      position: absolute;
+      z-index: 999;
+      top: 5px;
+      right: 10px;
+      font-size: 12px;
+      color: @border-color;
+      line-height: 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: all .3s;
+      opacity: 0;
+      &:hover {
+        color: @material-blue;
+      }
+    }
+    &:hover {
+      .copy-code {
+        opacity: 1;
+      }
+    }
+  }
+}

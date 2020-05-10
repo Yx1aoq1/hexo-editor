@@ -1,5 +1,6 @@
 import MainLayout from '@/layout/MainLayout'
-import Post from '@/modules/hexo/post'
+import ArticleList from '@/modules/article/list'
+import ArticleEdit from '@/modules/article/edit'
 
 export default [
   {
@@ -9,9 +10,10 @@ export default [
       name: 'POSTS'
     },
     children: [
-      { path: 'posts', name: 'POSTS', component: Post },
-      { path: 'drafts', name: 'DRAFTS', component: Post },
-      { path: 'trash', name: 'TRASH', component: Post }
+      { path: 'posts', name: 'POSTS', component: ArticleList },
+      { path: 'drafts', name: 'DRAFTS', component: ArticleList },
+      { path: 'trash', name: 'TRASH', component: ArticleList },
+      { path: 'edit/:id', name: 'EDIT', component: ArticleEdit }
     ]
   }
 ]

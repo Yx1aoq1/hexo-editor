@@ -1,7 +1,13 @@
 import uuid from './uuid'
+import str2Timestamp from './str2Timestamp'
+import timeFormatter from './timeFormatter'
+import timestampToDate from './timestampToDate'
 
 export {
-  uuid
+  uuid,
+  str2Timestamp,
+  timeFormatter,
+  timestampToDate
 }
 
 export function assert (condition, msg) {
