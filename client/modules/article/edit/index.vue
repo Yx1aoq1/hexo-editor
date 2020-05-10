@@ -60,14 +60,11 @@ export default {
         tags: [],
         date: +new Date(),
         content: ''
-      },
-      isEdit: !!this.$route.params.key
+      }
     }
   },
   mounted () {
-    if (this.isEdit) {
-      this.getDetail()
-    }
+    this.getDetail()
   },
   methods: {
     getDetail () {

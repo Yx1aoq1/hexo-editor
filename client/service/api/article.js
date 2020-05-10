@@ -8,31 +8,44 @@ export default [
     }
   },
   {
-    name: 'update',
-    method: 'POST',
-    path: '/article/update',
-    params: {
-      id: '',
-      title: '',
-      content: '',
-      date: '',
-      tags: [],
-      categories: '',
-      status: ''
-    }
-  },
-  {
-    name: 'delete',
+    name: 'detail',
     method: 'GET',
-    path: '/article/delete/:id',
+    path: '/article/detail/:id',
     params: {
       id: ''
     }
   },
   {
-    name: 'detail',
+    name: 'publish',
     method: 'GET',
-    path: '/article/detail/:id',
+    path: '/article/publish',
+    params: {
+      id: '',
+      workspace: ''
+    }
+  },
+  {
+    name: 'stash',
+    method: 'GET',
+    path: '/article/stash',
+    params: {
+      id: '',
+      workspace: ''
+    }
+  },
+  {
+    name: 'delete',
+    method: 'GET',
+    path: '/article/delete',
+    params: {
+      id: '',
+      workspace: ''
+    }
+  },
+  {
+    name: 'deleteSource',
+    method: 'GET',
+    path: '/article/deleteSource',
     params: {
       id: ''
     }

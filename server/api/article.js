@@ -13,9 +13,7 @@ router.post('/list', (req, res) => {
   //   responseClient(res, 401, '身份信息已过期，请重新登录')
   //   return
   // }
-  const {
-    workspace
-  } = req.body
+  const { workspace } = req.body
   const itemsPromise = manager.getItems(workspace)
   itemsPromise
     .then((files) => {
@@ -25,20 +23,12 @@ router.post('/list', (req, res) => {
         items.push(article.toJson())
         cache.put(article.hashCode(), article.toJson())
       }
-      responseClient(res, 200, '成功', items)
+      responseClient(res, 200, 'success', items)
     })
     .catch(err => {
       console.log(err)
       responseClient(res, 500, err)
     })
-})
-
-router.post('/update', (req, res) => {
-
-})
-
-router.get('/delete/:id', (req, res) => {
-
 })
 
 router.get('/detail/:id', (req, res) => {
@@ -51,19 +41,47 @@ router.get('/detail/:id', (req, res) => {
     if (!article) {
       article = {
         'title': 'Untitled',
-        'date': '',
+        'date': +new Date(),
         'tags': [],
         'categories': '',
         'content': '',
         'key': ''
       }
     }
-    responseClient(res, 200, '成功', article)
+    responseClient(res, 200, 'success', article)
   })
 })
 
-router.post('/changeStatus', (req, res) => {
+router.get('/publish', (req, res) => {
+  const { id, workspace } = req.query
+  cache.get(id, (article) => {
+    manager.moveToPost(article, workspace)
+  })
+  responseClient(res, 200, 'Already move to posts.')
+})
 
+router.get('/stash', (req, res) => {
+  const { id, workspace } = req.query
+  cache.get(id, (article) => {
+    manager.moveToDraft(article, workspace)
+  })
+  responseClient(res, 200, 'Already move to drafts.')
+})
+
+router.get('/delete', (req, res) => {
+  const { id, workspace } = req.query
+  cache.get(id, (article) => {
+    manager.moveToTrash(article, workspace)
+  })
+  responseClient(res, 200, 'Already move to trash.')
+})
+
+router.get('/deleteSource', (req, res) => {
+  const { id } = req.query
+  cache.get(id, (article) => {
+    manager.deletePost(article)
+  })
+  responseClient(res, 200, 'success')
 })
 
 export default router

@@ -33,7 +33,6 @@ export default class Manager {
   }
 
   getItems (workspace) {
-    console.log(workspace)
     switch (workspace) {
       case 'posts':
         return fs.listDir(this.post_dir, [])

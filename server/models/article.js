@@ -14,7 +14,7 @@ export default class Article {
     } catch (e) {
       this.rawContent = this.constructor.getRawContent({
         'title': 'Untitled',
-        'date': '',
+        'date': +new Date(),
         'tags': [],
         'categories': '',
         'content': ''

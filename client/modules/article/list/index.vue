@@ -6,8 +6,9 @@
     <a-list :data-source="data">
       <a-list-item slot="renderItem" slot-scope="item">
         <a slot="actions" @click="handleEdit(item)">Edit</a>
-        <a slot="actions">Stash</a>
-        <a slot="actions">Discard</a>
+        <a v-if="workspace !== 'posts'" slot="actions" @click="handleActions('publish', item)">Publish</a>
+        <a v-if="workspace !== 'drafts'" slot="actions" @click="handleActions('stash', item)">Stash</a>
+        <a v-if="workspace !== 'trash'" slot="actions" @click="handleActions('delete', item)">Discard</a>
         <a-list-item-meta>
           <a slot="title">{{ item.title }}</a>
           <div slot="description">
@@ -30,7 +31,7 @@ export default {
   },
   data () {
     return {
-      routerType: '',
+      workspace: '',
       data: []
     }
   },
@@ -45,7 +46,7 @@ export default {
   watch: {
     $route: {
       handler () {
-        this.routerType = this.$route.path.slice(1)
+        this.workspace = this.$route.path.slice(1)
         this.getList()
       },
       immediate: true
@@ -54,7 +55,7 @@ export default {
   methods: {
     getList () {
       this.$api['article/list']({
-        workspace: this.routerType
+        workspace: this.workspace
       })
         .then(res => {
           this.data = res.data
@@ -72,6 +73,16 @@ export default {
           key: item.key
         }
       })
+    },
+    handleActions (type, item) {
+      this.$api[`article/${type}`]({
+        id: item.key,
+        workspace: this.workspace
+      })
+        .then((res) => {
+          this.$message.success(res.message)
+          this.getList()
+        })
     }
   }
 }
