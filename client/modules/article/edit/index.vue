@@ -54,16 +54,30 @@ export default {
   data () {
     return {
       editForm: {
-        id: '',
-        title: 'abc',
+        key: this.$route.params.key,
+        title: 'Untitled',
         categories: '',
         tags: [],
         date: +new Date(),
         content: ''
-      }
+      },
+      isEdit: !!this.$route.params.key
+    }
+  },
+  mounted () {
+    if (this.isEdit) {
+      this.getDetail()
     }
   },
   methods: {
+    getDetail () {
+      this.$api['article/detail']({
+        id: this.editForm.key
+      })
+        .then(res => {
+          this.editForm = res.data
+        })
+    },
     goback () {
       this.$router.go(-1)
     }

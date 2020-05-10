@@ -12,16 +12,16 @@
           <a slot="title">{{ item.title }}</a>
           <div slot="description">
             <a-icon type="folder" /> {{item.categories}}
-            <a-icon class="mg-l10" type="tag" /> {{item.tags.join(', ')}}
+            <a-icon class="mg-l10" type="tag" /> {{item.tags | tags}}
           </div>
         </a-list-item-meta>
-        <div>{{item.date}}</div>
+        <div>{{item.date | date}}</div>
       </a-list-item>
     </a-list>
   </div>
 </template>
 <script>
-import { uuid } from '@/utils'
+import { timeFormatter } from '@/utils'
 export default {
   name: 'ArticleList',
   components: {
@@ -31,53 +31,45 @@ export default {
   data () {
     return {
       routerType: '',
-      data: [
-        {
-          id: 1,
-          title: 'Vue之keep-alive使用指南',
-          categories: 'vue',
-          tags: ['a', 'b', 'c'],
-          date: '2020-10-10'
-        },
-        {
-          id: 2,
-          title: 'Vue之keep-alive使用指南',
-          categories: 'vue',
-          tags: ['a', 'b', 'c'],
-          date: '2020-10-10'
-        },
-        {
-          id: 3,
-          title: 'Vue之keep-alive使用指南',
-          categories: 'vue',
-          tags: ['a', 'b', 'c'],
-          date: '2020-10-10'
-        }
-      ]
+      data: []
+    }
+  },
+  filters: {
+    tags (value) {
+      return value.join(',')
+    },
+    date (value) {
+      return timeFormatter(value)
     }
   },
   watch: {
     $route: {
       handler () {
         this.routerType = this.$route.path.slice(1)
+        this.getList()
       },
       immediate: true
     }
   },
   methods: {
+    getList () {
+      this.$api['article/list']({
+        workspace: this.routerType
+      })
+        .then(res => {
+          this.data = res.data
+        })
+    },
     handleAdd () {
       this.$router.push({
-        name: 'ADD',
-        params: {
-          id: uuid()
-        }
+        name: 'ADD'
       })
     },
     handleEdit (item) {
       this.$router.push({
         name: 'EDIT',
         params: {
-          id: item.id
+          key: item.key
         }
       })
     }

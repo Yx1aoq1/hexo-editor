@@ -6,5 +6,6 @@ module.exports = {
   app: {
     title: 'hexo-editor',
     description: 'hexo-editor'
-  }
+  },
+  base_dir: '../docs'
 }

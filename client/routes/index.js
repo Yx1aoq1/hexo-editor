@@ -13,8 +13,8 @@ export default [
       { path: 'posts', name: 'POSTS', component: ArticleList },
       { path: 'drafts', name: 'DRAFTS', component: ArticleList },
       { path: 'trash', name: 'TRASH', component: ArticleList },
-      { path: 'edit/:id', name: 'EDIT', component: ArticleEdit },
-      { path: 'add/:id', name: 'ADD', component: ArticleEdit }
+      { path: 'edit/:key', name: 'EDIT', component: ArticleEdit },
+      { path: 'add', name: 'ADD', component: ArticleEdit }
     ]
   }
 ]
