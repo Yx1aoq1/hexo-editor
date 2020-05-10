@@ -3,19 +3,17 @@
     <a-page-header
       class="page-header"
       :ghost="false"
-      @back="() => $router.go(-1)">
+      @back="goback">
       <template slot="title">
         <a-form-model-item label="">
           <a-input v-model="editForm.title" placeholder="Title" />
         </a-form-model-item>
       </template>
       <template slot="extra">
-        <a-button key="2">
-          Draft
-        </a-button>
-        <a-button key="1" type="primary">
-          Publish
-        </a-button>
+        <a-button key="1" type="primary">Publish</a-button>
+        <a-button key="1" type="danger">Discard</a-button>
+        <a-button key="2">Stash</a-button>
+        <a-button @click="goback">Cancel</a-button>
       </template>
     </a-page-header>
     <div class="panel">
@@ -66,6 +64,9 @@ export default {
     }
   },
   methods: {
+    goback () {
+      this.$router.go(-1)
+    }
   }
 }
 </script>

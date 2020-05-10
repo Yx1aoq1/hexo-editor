@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="clearfix">
+      <a-button type="primary" class="pull-right" @click="handleAdd">+ Add</a-button>
+    </div>
     <a-list :data-source="data">
       <a-list-item slot="renderItem" slot-scope="item">
         <a slot="actions" @click="handleEdit(item)">Edit</a>
@@ -18,6 +21,7 @@
   </div>
 </template>
 <script>
+import { uuid } from '@/utils'
 export default {
   name: 'ArticleList',
   components: {
@@ -61,6 +65,14 @@ export default {
     }
   },
   methods: {
+    handleAdd () {
+      this.$router.push({
+        name: 'ADD',
+        params: {
+          id: uuid()
+        }
+      })
+    },
     handleEdit (item) {
       this.$router.push({
         name: 'EDIT',
