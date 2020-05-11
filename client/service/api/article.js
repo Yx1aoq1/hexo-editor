@@ -17,7 +17,7 @@ export default [
   },
   {
     name: 'move',
-    method: 'GET',
+    method: 'POST',
     path: '/article/move',
     params: {
       id: '',
