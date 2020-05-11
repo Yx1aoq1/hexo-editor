@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import md5 from '@/utils'
+import { md5 } from '@/utils'
 export default {
   name: 'Login',
   data () {
