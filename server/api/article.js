@@ -4,6 +4,7 @@ import Article from '../models/article'
 import { responseClient } from '../utils'
 import Manager from '../models/file-manager'
 import cache from '../models/cache'
+import { CACHE_NAME } from '../const'
 
 const router = Express.Router()
 const manager = new Manager(config.base_dir)
@@ -48,32 +49,32 @@ router.get('/detail/:id', (req, res) => {
         'key': ''
       }
     }
-    responseClient(res, 200, 'success', article)
+    responseClient(res, 200, 'Success.', article)
   })
 })
 
-router.get('/publish', (req, res) => {
-  const { id, workspace } = req.query
-  cache.get(id, (article) => {
-    manager.moveToPost(article, workspace)
-  })
-  responseClient(res, 200, 'Already move to posts.')
+router.post('/move', (req, res) => {
+  const { id, origin, target } = req.body
+  if (id) {
+    cache.get(id, (article) => {
+      manager.movePost(article, origin, target)
+    })
+  }
+  responseClient(res, 200, `Already move to ${target}.`)
 })
 
-router.get('/stash', (req, res) => {
-  const { id, workspace } = req.query
-  cache.get(id, (article) => {
-    manager.moveToDraft(article, workspace)
-  })
-  responseClient(res, 200, 'Already move to drafts.')
-})
-
-router.get('/delete', (req, res) => {
-  const { id, workspace } = req.query
-  cache.get(id, (article) => {
-    manager.moveToTrash(article, workspace)
-  })
-  responseClient(res, 200, 'Already move to trash.')
+router.post('/save', (req, res) => {
+  const { id, origin, target } = req.body
+  if (id) { // 文件已存在
+    cache.get(CACHE_NAME + id, (article) => {
+      manager.movePost(article, origin, target)
+    })
+  } else {
+    cache.get(CACHE_NAME, (article) => {
+      manager.savePost(article, target)
+    })
+  }
+  responseClient(res, 200, 'Success.')
 })
 
 router.get('/deleteSource', (req, res) => {
@@ -81,7 +82,7 @@ router.get('/deleteSource', (req, res) => {
   cache.get(id, (article) => {
     manager.deletePost(article)
   })
-  responseClient(res, 200, 'success')
+  responseClient(res, 200, 'Success.')
 })
 
 export default router

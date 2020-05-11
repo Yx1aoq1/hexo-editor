@@ -6,9 +6,9 @@
     <a-list :data-source="data">
       <a-list-item slot="renderItem" slot-scope="item">
         <a slot="actions" @click="handleEdit(item)">Edit</a>
-        <a v-if="workspace === 'drafts'" slot="actions" @click="handleActions('publish', item)">Publish</a>
-        <a v-if="workspace !== 'drafts'" slot="actions" @click="handleActions('stash', item)">Stash</a>
-        <a v-if="workspace !== 'trash'" slot="actions" @click="handleActions('delete', item)">Discard</a>
+        <a v-if="workspace === 'drafts'" slot="actions" @click="handleMove('posts', item)">Publish</a>
+        <a v-if="workspace !== 'drafts'" slot="actions" @click="handleMove('drafts', item)">Stash</a>
+        <a v-if="workspace !== 'trash'" slot="actions" @click="handleMove('trash', item)">Discard</a>
         <a v-if="workspace === 'trash'" slot="actions" @click="handleDelete(item)">Delete</a>
         <a-list-item-meta>
           <a slot="title">{{ item.title }}</a>
@@ -71,14 +71,16 @@ export default {
       this.$router.push({
         name: 'EDIT',
         params: {
-          key: item.key
+          key: item.key,
+          workspace: this.workspace
         }
       })
     },
-    handleActions (type, item) {
-      this.$api[`article/${type}`]({
+    handleMove (target, item) {
+      this.$api['article/move']({
         id: item.key,
-        workspace: this.workspace
+        origin: this.workspace,
+        target
       })
         .then((res) => {
           this.$message.success(res.message)
@@ -90,7 +92,13 @@ export default {
         title: 'Do you want to delete this article?',
         content: 'When clicked the OK button, source file will be delete',
         onOk () {
-          this.handleActions('deleteSource', item)
+          this.$api['article/deleteSource']({
+            id: item.key
+          })
+            .then((res) => {
+              this.$message.success(res.message)
+              this.getList()
+            })
         }
       })
     }

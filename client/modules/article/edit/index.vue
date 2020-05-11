@@ -10,8 +10,8 @@
         </a-form-model-item>
       </template>
       <template slot="extra">
-        <a-button key="1" type="primary">Publish</a-button>
-        <a-button key="2">Stash</a-button>
+        <a-button type="primary" @click="handleSave('posts')">Publish</a-button>
+        <a-button @click="handleSave('drafts')">Stash</a-button>
         <a-button @click="goback">Cancel</a-button>
       </template>
     </a-page-header>
@@ -52,6 +52,7 @@ export default {
   },
   data () {
     return {
+      workspace: this.$route.params.workspace,
       editForm: {
         key: this.$route.params.key,
         title: 'Untitled',
@@ -74,6 +75,16 @@ export default {
           this.editForm = res.data
         })
     },
+    handleSave (target) {
+      this.$api['article/save']({
+        id: this.editForm.key,
+        origin: this.workspace,
+        target
+      })
+        .then(res => {
+          this.$message.success(res.message)
+        })
+    },
     goback () {
       this.$router.go(-1)
     }
@@ -93,7 +104,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex: 1;
-  height: 100%;
+  height: ~"calc(100% - 70px)";
   &-left {
     width: 215px;
     height: 100%;

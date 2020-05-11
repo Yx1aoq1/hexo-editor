@@ -36,7 +36,8 @@ module.exports = {
     config.plugin('provide')
       .use(webpack.ProvidePlugin, [
         {
-          _: 'lodash'
+          _: 'lodash',
+          'window.hljs': 'highlight.js'
         }
       ])
     

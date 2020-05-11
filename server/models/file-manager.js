@@ -1,10 +1,11 @@
 /* eslint-disable camelcase */
 import fs from 'hexo-fs'
 import Article from './article'
-const suffix = '.md'
+import { SUFFIX } from '../const'
 
 export default class Manager {
   constructor (base_dir) {
+    this.base_dir = base_dir
     this.post_dir = base_dir + '/source/_posts/'
     this.draft_dir = base_dir + '/source/_drafts/'
     this.trash_dir = base_dir + '/source/_trash/'
@@ -28,7 +29,7 @@ export default class Manager {
       case 'trash':
         return this.trash_dir
       default:
-        return ''
+        return this.base_dir
     }
   }
 
@@ -45,48 +46,15 @@ export default class Manager {
     }
   }
 
-  saveToDraft (article) {
-    Article.parseJson(article).saveTo(this.draft_dir)
-  }
-  saveToPost (article) {
-    Article.parseJson(article).saveTo(this.post_dir)
+  savePost (article, workspace) {
+    const dir = this.getPathByWorkspace(workspace)
+    Article.parseJson(article).saveTo(dir)
   }
 
-  readFromDraft (title) {
-    let path = this.draft_dir + title + suffix
-    return (new Article(path)).toJson()
-  }
-
-  moveToPost (article, workspace) {
-    const filename = article.filename + suffix
-    const oldPath = this.getPathByWorkspace(workspace) + filename
-    const newPath = this.post_dir + filename
-    fs.rename(oldPath, newPath)
-      .then((err) => {
-        if (err) {
-          console.err(err)
-        }
-      })
-  }
-
-  moveToDraft (article, workspace) {
-    const draft_dir = this.draft_dir
-    const filename = (article.filename ? article.filename : article.title) + suffix
-    const oldPath = this.getPathByWorkspace(workspace) + filename
-    const newPath = draft_dir + filename
-    fs.rename(oldPath, newPath)
-      .then((err) => {
-        if (err) {
-          console.err(err)
-        }
-      })
-  }
-
-  moveToTrash (article, workspace) {
-    const trash_dir = this.trash_dir
-    const filename = article.filename + suffix
-    const oldPath = this.getPathByWorkspace(workspace) + filename
-    const newPath = trash_dir + filename
+  movePost (article, origin, target) {
+    const filename = article.filename + SUFFIX
+    const oldPath = this.getPathByWorkspace(origin) + filename
+    const newPath = this.getPathByWorkspace(target) + filename
     fs.rename(oldPath, newPath)
       .then((err) => {
         if (err) {
@@ -96,7 +64,7 @@ export default class Manager {
   }
 
   deletePost (article) {
-    const path = this.trash_dir + article.filename + suffix
+    const path = this.trash_dir + article.filename + SUFFIX
     console.log(path)
     fs.unlink(path)
       .then((err) => {

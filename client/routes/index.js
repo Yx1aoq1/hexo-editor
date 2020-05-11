@@ -13,7 +13,7 @@ export default [
       { path: 'posts', name: 'POSTS', component: ArticleList },
       { path: 'drafts', name: 'DRAFTS', component: ArticleList },
       { path: 'trash', name: 'TRASH', component: ArticleList },
-      { path: 'edit/:key', name: 'EDIT', component: ArticleEdit },
+      { path: ':workspace/edit/:key', name: 'EDIT', component: ArticleEdit },
       { path: 'add', name: 'ADD', component: ArticleEdit }
     ]
   }

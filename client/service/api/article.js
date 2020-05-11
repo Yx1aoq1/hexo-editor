@@ -16,30 +16,23 @@ export default [
     }
   },
   {
-    name: 'publish',
+    name: 'move',
     method: 'GET',
-    path: '/article/publish',
+    path: '/article/move',
     params: {
       id: '',
-      workspace: ''
+      origin: '',
+      target: ''
     }
   },
   {
-    name: 'stash',
-    method: 'GET',
-    path: '/article/stash',
+    name: 'save',
+    method: 'POST',
+    path: '/article/save',
     params: {
       id: '',
-      workspace: ''
-    }
-  },
-  {
-    name: 'delete',
-    method: 'GET',
-    path: '/article/delete',
-    params: {
-      id: '',
-      workspace: ''
+      origin: '',
+      target: ''
     }
   },
   {
