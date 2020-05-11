@@ -1,9 +1,10 @@
-const CHUNK_SIZE = 64
+import CONFIG from '../../config/config'
+
 const CACHE_NAME = 'cache'
 const SUFFIX = '.md'
 
 export {
-  CHUNK_SIZE,
   CACHE_NAME,
-  SUFFIX
+  SUFFIX,
+  CONFIG
 }

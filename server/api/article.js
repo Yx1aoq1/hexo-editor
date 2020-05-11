@@ -24,7 +24,7 @@ router.post('/list', (req, res) => {
         items.push(article.toJson())
         cache.put(article.hashCode(), article.toJson())
       }
-      responseClient(res, 200, 'success', items)
+      responseClient(res, 200, 'Success.', items)
     })
     .catch(err => {
       console.log(err)

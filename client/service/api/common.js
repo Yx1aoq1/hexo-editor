@@ -1,8 +1,11 @@
 export default [
   {
-    name: 'userInfo',
-    method: 'GET',
-    path: '/common/userInfo',
-    params: {}
+    name: 'login',
+    method: 'POST',
+    path: '/login',
+    params: {
+      username: '',
+      password: ''
+    }
   }
 ]

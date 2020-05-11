@@ -8,11 +8,11 @@ import compression from 'compression'
 import connectHistoryApiFallback from 'connect-history-api-fallback'
 import cors from 'cors'
 import logger from './logger'
-import config from '../config/config'
+import { CONFIG } from './const'
 import api from './api'
 
 const app = Express()
-const port = config.port
+const port = CONFIG.port
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -36,6 +36,6 @@ app.listen(port, function (err) {
   if (err) {
     console.error('err:', err)
   } else {
-    console.info(`===> api server is running at ${config.host}:${config.port}`)
+    console.info(`===> api server is running at ${CONFIG.host}:${CONFIG.port}`)
   }
 })

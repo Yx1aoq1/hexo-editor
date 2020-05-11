@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import { md5 } from '@/utils'
+import { md5, cookieUtils } from '@/utils'
 export default {
   name: 'Login',
   data () {
@@ -40,15 +40,15 @@ export default {
   },
   methods: {
     handleSubmit () {
-      this.$api['user/login']({
+      this.$api['common/login']({
         username: this.editForm.username,
         password: md5(this.editForm.password, this.$const['APP/MD5_SUFFIX'])
       })
         .then(res => {
           this.$message.success(res.message)
-          this.$store.commit('setUserInfo', res.data)
+          cookieUtils.set('username', res.data, 30) // 将登录信息设置到cookie中
           this.$router.push({
-            name: 'HOME-POSTS'
+            name: 'POSTS'
           })
         })
     }
@@ -58,6 +58,6 @@ export default {
 <style lang="less" scoped>
 .card-wrap {
   width: 350px;
-  margin: 50px auto;
+  margin: 10% auto;
 }
 </style>
