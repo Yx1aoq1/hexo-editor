@@ -2,7 +2,6 @@ import frontMatter from 'hexo-front-matter'
 import fs from 'hexo-fs'
 import path from 'path'
 import { md5 } from '../utils'
-import { head } from 'lodash'
 
 const suffix = '.md'
 
@@ -69,7 +68,6 @@ export default class Article {
 
   toJson () {
     const article = frontMatter.parse(this.rawContent)
-    console.log(article._content)
     return {
       'title': article.title,
       'date': +article.date,
