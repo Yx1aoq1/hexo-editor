@@ -65,7 +65,6 @@ export default class Manager {
 
   deletePost (article) {
     const path = this.trash_dir + article.filename + SUFFIX
-    console.log(path)
     fs.unlink(path)
       .then((err) => {
         if (err) {

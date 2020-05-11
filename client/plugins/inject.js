@@ -1,6 +1,7 @@
 import axios from './axios'
 import api from './api'
 import consts from './const'
+import socket from './socket'
 
 // 全局ajax
 global.ajax = axios
@@ -11,5 +12,6 @@ export default {
     Vue.prototype.$ajax = axios
     Vue.prototype.$api = api
     Vue.prototype.$const = consts
+    Vue.prototype.$socket = socket
   }
 }

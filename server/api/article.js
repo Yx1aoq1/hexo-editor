@@ -67,6 +67,7 @@ router.post('/save', (req, res) => {
   const { id, origin, target } = req.body
   if (id) { // 文件已存在
     cache.get(CACHE_NAME + id, (article) => {
+      manager.savePost(article, origin) // 覆盖原文件
       manager.movePost(article, origin, target)
     })
   } else {

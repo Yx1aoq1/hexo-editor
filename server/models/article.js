@@ -34,7 +34,7 @@ export default class Article {
       prefixSeparator: true,
       ...opt
     })
-    result += `\n${article.content}`
+    result += `${article.content}`
     return result
   }
 
@@ -69,12 +69,13 @@ export default class Article {
 
   toJson () {
     const article = frontMatter.parse(this.rawContent)
+    console.log(article._content)
     return {
       'title': article.title,
       'date': +article.date,
       'tags': article.tags,
-      'categories': head(article.categories),
-      'content': article._content,
+      'categories': article.categories,
+      'content': article._content, // 去掉首行换行
       'key': this.hashCode(),
       'filename': this.filename
     }

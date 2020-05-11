@@ -10,6 +10,7 @@ import cors from 'cors'
 import logger from './logger'
 import { CONFIG } from './const'
 import api from './api'
+import sync from './models/sync'
 
 const app = Express()
 const port = CONFIG.port
@@ -32,7 +33,14 @@ app.use(favicon(path.join(__dirname, '../dist', 'favicon.ico')))
 app.use('/api', api)
 app.use(compression())
 
-app.listen(port, function (err) {
+const server = require('http').Server(app)
+const io = require('socket.io')(server, {
+  origins: 'http://localhost:*'
+})
+
+io.on('connection', sync)
+
+server.listen(port, function (err) {
   if (err) {
     console.error('err:', err)
   } else {

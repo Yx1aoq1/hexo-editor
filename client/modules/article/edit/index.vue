@@ -43,6 +43,7 @@
 import { MarkdownEditor } from '@/components/base/markdown'
 import { DatePicker } from '@/components/antd/datePicker'
 import { TagInput } from '@/components/antd/tagInput'
+
 export default {
   name: 'ArticleEdit',
   components: {
@@ -60,7 +61,16 @@ export default {
         tags: [],
         date: +new Date(),
         content: ''
-      }
+      },
+      socket: null
+    }
+  },
+  watch: {
+    editForm: {
+      handler: _.debounce(function () {
+        this.$socket.emit('syncArticle', this.editForm)
+      }, 500),
+      deep: true
     }
   },
   mounted () {
@@ -83,6 +93,7 @@ export default {
       })
         .then(res => {
           this.$message.success(res.message)
+          this.goback()
         })
     },
     goback () {
