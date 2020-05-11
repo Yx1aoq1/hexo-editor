@@ -28,7 +28,9 @@ module.exports = {
     }
   },
   devServer: {
-    proxy: `http://${config.host}:${config.port}/api`
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
   },
   chainWebpack (config) {
     config.plugins.delete('prefetch')

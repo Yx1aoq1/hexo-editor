@@ -6,6 +6,7 @@ import session from 'express-session'
 import favicon from 'serve-favicon'
 import compression from 'compression'
 import connectHistoryApiFallback from 'connect-history-api-fallback'
+import cors from 'cors'
 import logger from './logger'
 import config from '../config/config'
 import api from './api'
@@ -23,6 +24,7 @@ app.use(session({
   cookie: {maxAge: 60 * 1000 * 30} // 过期时间
 }))
 app.use(logger)
+app.use(cors()) // 设置跨域
 // history模式重定向插件 connect-history-api-fallback
 app.use('/', connectHistoryApiFallback())
 app.use('/', Express.static(path.join(__dirname, '../dist')))
