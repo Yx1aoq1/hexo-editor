@@ -2,7 +2,7 @@
   <a-menu
     theme="dark"
     mode="inline"
-    :default-selected-keys="[menus[0].code]"
+    :selectedKeys="[currentMenu]"
     @click="handleMenuClick">
     <a-menu-item v-for="item in menus" :key="item.code">
       <a-icon :type="item.icon" />
@@ -16,6 +16,13 @@ export default {
   data () {
     return {
       menus: window.globalConfig.menu
+    }
+  },
+  computed: {
+    currentMenu () {
+      const currentRouter = this.$route.name
+      const targetMenu = this.menus.find(item => item.url === currentRouter)
+      return targetMenu.code
     }
   },
   methods: {

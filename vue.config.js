@@ -2,6 +2,9 @@ const path = require('path')
 const webpack = require('webpack')
 const config = require('./config/config.js')
 
+process.env.VUE_APP_BASE_URL = `http://${config.host}:${config.port}/api`
+process.env.VUE_APP_SOCKET_URL = `http://${config.host}:${config.port}`
+
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
