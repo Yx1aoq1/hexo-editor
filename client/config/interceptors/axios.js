@@ -43,7 +43,7 @@ export function responseFailFunc (responseError) {
 
   // 全局错误提示
   if (responseError.config && !responseError.config.noShowDefaultError) {
-    global.vbus.$emit('global.$Message.show', responseError.message)
+    global.vbus.$emit('global.$Message.error', responseError.message)
   }
 
   return Promise.reject(responseError)
