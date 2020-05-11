@@ -35,7 +35,7 @@ app.use(compression())
 
 const server = require('http').Server(app)
 const io = require('socket.io')(server, {
-  origins: 'http://localhost:*'
+  origins: `http://${CONFIG.host}:*` // 跨域配置
 })
 
 io.on('connection', sync)
