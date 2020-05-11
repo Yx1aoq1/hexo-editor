@@ -4,10 +4,12 @@
     mode="inline"
     :selectedKeys="[currentMenu]"
     @click="handleMenuClick">
-    <a-menu-item v-for="item in menus" :key="item.code">
-      <a-icon :type="item.icon" />
-      <span>{{item.name}}</span>
-    </a-menu-item>
+    <template v-for="item in menus">
+      <a-menu-item v-if="item.show" :key="item.code">
+        <a-icon :type="item.icon" />
+        <span>{{item.name}}</span>
+      </a-menu-item>
+    </template>
   </a-menu>
 </template>
 <script>
@@ -22,7 +24,11 @@ export default {
     currentMenu () {
       const currentRouter = this.$route.name
       const targetMenu = this.menus.find(item => item.url === currentRouter)
-      return targetMenu.code
+      if (targetMenu && targetMenu.show) {
+        return targetMenu.code
+      } else {
+        return null
+      }
     }
   },
   methods: {
