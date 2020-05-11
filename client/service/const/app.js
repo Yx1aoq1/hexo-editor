@@ -1,7 +1,4 @@
 export default [{
-  name: 'PERMISSION',
-  value: {
-    'ADMIN': 1,
-    'SPACE': 2
-  }
+  name: 'MD5_SUFFIX',
+  value: 'breathe_defiance_to_[thine]_ears'
 }]

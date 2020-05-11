@@ -1,5 +1,6 @@
 import { CONSOLE_REQUEST_ENABLE, CONSOLE_RESPONSE_ENABLE } from '../index'
 import { get } from 'lodash'
+import $router from '@/plugins/router.js'
 
 export function requestSuccessFunc (requestObj) {
   CONSOLE_REQUEST_ENABLE && console.info('requestInterceptorFunc', `url: ${requestObj.url}`, requestObj)
@@ -27,6 +28,9 @@ export function responseFailFunc (responseError) {
         location.reload()
         break
       case 401:
+        $router.push({
+          name: 'LOGIN'
+        })
         responseError.message = '未授权，请重新登录'
         break
       default:
@@ -43,7 +47,7 @@ export function responseFailFunc (responseError) {
 
   // 全局错误提示
   if (responseError.config && !responseError.config.noShowDefaultError) {
-    global.vbus.$emit('global.$Message.show', responseError.message)
+    global.vbus.$emit('global.$Message.error', responseError.message)
   }
 
   return Promise.reject(responseError)
