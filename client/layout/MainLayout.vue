@@ -64,7 +64,7 @@ export default {
 
 .logo {
   height: 32px;
-  background: rgba(255, 255, 255, 0.2);
+  line-height: 32px;
   margin: 16px;
 }
 </style>
