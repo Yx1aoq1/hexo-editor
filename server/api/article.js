@@ -10,10 +10,6 @@ const router = Express.Router()
 const manager = new Manager(config.base_dir)
 
 router.post('/list', (req, res) => {
-  // if (!req.session.username) {
-  //   responseClient(res, 401, '身份信息已过期，请重新登录')
-  //   return
-  // }
   const { workspace } = req.body
   const itemsPromise = manager.getItems(workspace)
   itemsPromise
@@ -33,10 +29,6 @@ router.post('/list', (req, res) => {
 })
 
 router.get('/detail/:id', (req, res) => {
-  // if (!req.session.username) {
-  //   responseClient(res, 401, '身份信息已过期，请重新登录')
-  //   return
-  // }
   const { id } = req.params
   cache.get(id, (article) => {
     if (!article) {

@@ -15,6 +15,7 @@ export const AXIOS_DEFAULT_CONFIG = {
   headers: {
     'X-Requested-With': 'XMLHttpRequest'
   },
+  withCredentials: true,
   baseURL: process.env.NODE_ENV === 'development' && !window.globalConfig.baseURL
     ? '/'
     : window.globalConfig.baseURL
