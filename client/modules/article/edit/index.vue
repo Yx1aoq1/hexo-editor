@@ -33,7 +33,7 @@
       </div>
       <div class="panel-right">
         <a-form-model-item label="">
-          <markdown-editor v-model="editForm.content"></markdown-editor>
+          <markdown-editor v-model="editForm.content" :imageOption="editorImageOption"></markdown-editor>
         </a-form-model-item>
       </div>
     </div>
@@ -62,7 +62,11 @@ export default {
         date: +new Date(),
         content: ''
       },
-      socket: null
+      socket: null,
+      editorImageOption: {
+        action: window.globalConfig.baseURL + '/image',
+        withCredentials: true
+      }
     }
   },
   watch: {

@@ -1,5 +1,6 @@
 module.exports = {
   host: 'localhost',
+  imageHost: 'localhost',
   port: 3000,
   base_dir: './docs',
   username: 'Yx1aoq1',

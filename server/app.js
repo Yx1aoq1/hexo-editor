@@ -11,10 +11,12 @@ import logger from './logger'
 import { CONFIG } from './const'
 import api from './api'
 import sync from './models/sync'
+import busboy from 'connect-busboy'
 
 const app = Express()
 const port = CONFIG.port
 
+app.use(busboy())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(cookieParser('express_react_cookie'))

@@ -1,5 +1,4 @@
 import { uuid } from '@/utils'
-import axios from 'axios'
 
 export default {
   props: {
@@ -31,7 +30,8 @@ export default {
           response: (res) => res.url
         }, newVal)
       },
-      deep: true
+      deep: true,
+      immediate: true
     }
   },
   methods: {
@@ -69,12 +69,13 @@ export default {
       const { action, data, headers, withCredentials, response } = this.imageOption_
       let param = new FormData()
       param.append('file', file)
+      console.log(this.imageOption_)
       if (data) {
         Object.keys(data).map(key => {
           param.append(key, data[key])
         })
       }
-      axios.post(action, param, {
+      this.$ajax.post(action, param, {
         headers: {
           'Content-Type': 'multipart/form-data',
           ...headers

@@ -19,10 +19,13 @@ router.post('/image', (req, res, next) => {
   let fstream
   req.pipe(req.busboy)
   req.busboy.on('file', (fieldname, file, filename) => {
+    filename = `image_${+new Date()}` // 对上传的图片进行重命名
     fstream = fs.createWriteStream(CONFIG.base_dir + '/source/images/' + filename)
     file.pipe(fstream)
     fstream.on('close', () => {
-      res.send('/images/' + filename)
+      responseClient(res, 200, 'Success.', {
+        url: CONFIG.imageHost + '/images/' + filename
+      })
     })
   })
 })
